@@ -1,11 +1,4 @@
-import webbrowser
-import os
-import re
 
-# Styles and scripting for the page
-
-main_page_head = \
-    '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,12 +82,7 @@ main_page_head = \
         });
     </script>
 </head>
-'''
 
-# The main page layout and title bar
-
-main_page_content = \
-    '''
   <body>
     <!-- Trailer Video Modal -->
     <div class="modal" id="trailer">
@@ -122,69 +110,67 @@ main_page_content = \
       </div>
     </div>
     <div class="container">
-      {movie_tiles}
+      
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="FnCdOQsX5kc" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w185/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg" width="220" height="342">
+    <h2>It</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="jc86EFjLFV4" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w185/q0R4crx2SehcEEQEkYObktdeFy.jpg" width="220" height="342">
+    <h2>Minions</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="ue80QwXMRHg" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w185/oSLd5GYGsiGgzDPKTwQh7wamO8t.jpg" width="220" height="342">
+    <h2>Thor: Ragnarok</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="ntxS1bBg5o0" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w185/cTaEIUYTt52ooq9quVbAQ7NpGwo.jpg" width="220" height="342">
+    <h2>Happy Death Day</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="haXvp8M9Cog" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w185/aMpyrCizvSdc0UIMblJ1srVgAEF.jpg" width="220" height="342">
+    <h2>Blade Runner 2049</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="mafJGrKvMIg" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w185/wridRvGxDqGldhzAIh3IcZhHT5F.jpg" width="220" height="342">
+    <h2>Sleight</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="vPP6aIw1vgY" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w185/zUbUtxiTdEgWnkXY945gtYYqBZ1.jpg" width="220" height="342">
+    <h2>Jigsaw</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="EuOlYPSEzSc" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w185/nrsx0jEaBgXq4PWo7SooSnYJTv.jpg" width="220" height="342">
+    <h2>Geostorm</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="OvgyXKDXdZY" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w185/9gLu47Zw5ertuFTZaxXOvNfy78T.jpg" width="220" height="342">
+    <h2>Big Hero 6</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="yDBFrQvfGlQ" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w185/3vYhLLxrTtZLysXtIWktmd57Snv.jpg" width="220" height="342">
+    <h2>War for the Planet of the Apes</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="c38r-SAnTWM" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w185/tWqifoYuwLETmmasnGHO7xBjEtt.jpg" width="220" height="342">
+    <h2>Beauty and the Beast</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="1Q8fG0TtVAY" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w185/imekS7f1OuHyUP2LAiTEM0zBzUz.jpg" width="220" height="342">
+    <h2>Wonder Woman</h2>
+</div>
+
     </div>
   </body>
 </html>
-'''
-
-# A single movie entry html template
-
-movie_tile_content = \
-    '''
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
-    <img src="{poster_image_url}" width="220" height="342">
-    <h2>{movie_title}</h2>
-</div>
-'''
-
-
-def create_movie_tiles_content(movies):
-
-    # The HTML content for this section of the page
-
-    content = ''
-    for movie in movies:
-
-        # Extract the youtube ID from the url
-
-        youtube_id_match = re.search(r'(?<=v=)[^&#]+',
-                movie.trailer_youtube_url)
-        youtube_id_match = youtube_id_match \
-            or re.search(r'(?<=be/)[^&#]+', movie.trailer_youtube_url)
-        trailer_youtube_id = \
-            (youtube_id_match.group(0) if youtube_id_match else None)
-
-        # Append the tile for the movie with its content filled in
-
-        content += movie_tile_content.format(movie_title=movie.title,
-                poster_image_url=movie.poster_image_url,
-                trailer_youtube_id=trailer_youtube_id)
-    return content
-
-
-def open_movies_page(movies, file_name, open_in_browser):
-
-    # Create or overwrite the output file
-
-    output_file = open(file_name, 'w')
-
-    # Replace the movie tiles placeholder generated content
-
-    rendered_content = \
-        main_page_content.format(movie_tiles=create_movie_tiles_content(movies))
-
-    # Output the file
-
-    output_file.write(main_page_head + rendered_content)
-    output_file.close()
-
-    # open the output file in the browser (in a new tab, if possible)
-
-    if open_in_browser:
-        url = os.path.abspath(output_file.name)
-        webbrowser.open('file://' + url, new=2)
-
-
-
-			

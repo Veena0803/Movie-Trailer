@@ -96,7 +96,7 @@ TVshows = [
 # Invokes the function "open_movies_page" from the file "fresh_tomatoes"
 
 fresh_tomatoes.open_movies_page(TVshows, 'TV_shows.html', False)
-fresh_tomatoes.open_movies_page(movies, 'fresh_tomatoes.html', True)
+fresh_tomatoes.open_movies_page(movies, 'index.html', True)
 
 
 			
