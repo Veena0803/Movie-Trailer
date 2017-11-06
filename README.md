@@ -7,9 +7,10 @@ This project is part of the Udacity Full Stack Nanodegree program which demonstr
   - Getting Started 
   - Structure of the project 
   - Technologies Used
+  - Accessing using IDLE
 
 ### Demo
-For a demo, click on this link: https://veena0803.github.io/Movie-Trailer/
+For a demo, click on this link: 
 ### Getting Started 
 - Clone the repository
 - Open fresh_tomatoes.html in the browser
@@ -24,3 +25,5 @@ For a demo, click on this link: https://veena0803.github.io/Movie-Trailer/
 - Python
 - JSON
 - Javascript
+### Accessing using IDLE:
+In order to open the file using IDLE, load the file entertainment_center.py in IDLE & click "Run" or press F5 key. The file "index.html" will automatically be opened in the browser. 
